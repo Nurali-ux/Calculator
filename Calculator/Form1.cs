@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Calculator
@@ -18,15 +12,12 @@ namespace Calculator
         public Form1()
         {
             InitializeComponent();
-
-          
         }
-
-
-
         private void Number_Click(object sender, EventArgs e)
         {
-            Button btn = (Button)sender;
+            Button btn = sender as Button;
+            if (btn == null)
+                return;
             string number = btn.Text;
 
             if (newNumber || txtDisplay.Text == "0")
@@ -39,77 +30,57 @@ namespace Calculator
                 txtDisplay.Text += number;
             }
         }
-
-
         private void button1_Click_1(object sender, EventArgs e)
         {
             Number_Click(btn1, e);
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text += "2";
+            Number_Click(sender, e);
         }
-
         private void button3_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text += "3";
+            Number_Click(sender, e);
         }
-
         private void button4_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text += "4";
+            Number_Click(sender, e);
         }
-
         private void button5_Click_1(object sender, EventArgs e)
         {
             Number_Click(btn5, e);
         }
-
         private void button6_Click_1(object sender, EventArgs e)
         {
             Number_Click(btn6, e);
         }
-
         private void button7_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text += "7";
+            Number_Click(sender, e);
         }
-
         private void button8_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text += "8";
+            Number_Click(sender, e);
         }
-
         private void button9_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text += "9";
+            Number_Click(sender, e);
         }
-
         private void button10_Click(object sender, EventArgs e)
         {
-            txtDisplay.Text += "0";
+            Number_Click(sender, e);
         }
-
-        private void txtDisplay_MaskInputRejected(
-    object sender,
-    MaskInputRejectedEventArgs e)
-        {
-        }
-
-
-
-
         private void Operation_Click(object sender, EventArgs e)
         {
             if (!double.TryParse(txtDisplay.Text, out firstNumber))
                 return;
 
-            Button btn = (Button)sender;
+            Button btn = sender as Button;
+            if (btn == null)
+                return;
             operation = btn.Text;
             newNumber = true;
         }
-
         private void btnEqual_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(operation))
@@ -118,7 +89,7 @@ namespace Calculator
             if (!double.TryParse(txtDisplay.Text, out double secondNumber))
                 return;
 
-            double result = 0;
+            double result;
 
             switch (operation)
             {
@@ -155,7 +126,6 @@ namespace Calculator
             operation = "";
             newNumber = true;
         }
-
         private void btnClear_Click(object sender, EventArgs e)
         {
             txtDisplay.Text = "0";
@@ -163,21 +133,22 @@ namespace Calculator
             operation = "";
             newNumber = true;
         }
-
+        private void txtDisplay_MaskInputRejected(
+            object sender,
+            MaskInputRejectedEventArgs e)
+        {
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             Number_Click(btn1, e);
         }
-
         private void button6_Click(object sender, EventArgs e)
         {
             Number_Click(btn6, e);
         }
-
         private void btn5_Click(object sender, EventArgs e)
         {
-
+            Number_Click(btn5, e);
         }
     }
-
 }
